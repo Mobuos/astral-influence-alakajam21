@@ -9,10 +9,11 @@
 [ext_resource type="FontFile" uid="uid://ctxiaqhu73s6r" path="res://assets/m6x11plus.ttf" id="6_2oirw"]
 [ext_resource type="Script" path="res://tutorial_nodes.gd" id="6_nmiwk"]
 
-[node name="Space" type="Node2D"]
+[node name="Space" type="Node2D" node_paths=PackedStringArray("goal")]
 z_index = 100
 z_as_relative = false
 script = ExtResource("1_rd2gg")
+goal = NodePath("Goal")
 num_shots = 20
 cannon_force = 120
 metadata/_edit_lock_ = true
@@ -31,14 +32,15 @@ metadata/_edit_lock_ = true
 [node name="Cannon" parent="." instance=ExtResource("3_07jqw")]
 z_index = 50
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="Goal" type="StaticBody2D" parent="."]
 position = Vector2(461, 189)
 rotation = 1.65283
 collision_layer = 2
 script = ExtResource("5_1fhju")
+goalQtd = null
 metadata/_edit_group_ = true
 
-[node name="Counter" type="RichTextLabel" parent="StaticBody2D"]
+[node name="Counter" type="RichTextLabel" parent="Goal"]
 z_index = 1000
 texture_filter = 1
 offset_left = -24.0
@@ -53,22 +55,23 @@ bbcode_enabled = true
 text = "[center]0/5"
 scroll_active = false
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Goal"]
 polygon = PackedVector2Array(-20.1234, 23.7286, -20.4244, -4.34106, -6.47145, -5.48819, 3.46815, 17.7756, 8.3694, 16.3693, -0.737427, -8.96979, -11.9823, -7.04187, -25.5714, -5.92471, -25.1885, 23.1417)
 
-[node name="Detection" type="Polygon2D" parent="StaticBody2D"]
-color = Color(0.298039, 0.337255, 0.443137, 1)
-polygon = PackedVector2Array(-20.1234, 23.7286, 3.46815, 17.7756, -6.47144, -5.48822, -20.4244, -4.34109)
+[node name="Detection" type="Area2D" parent="Goal"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Goal/Detection"]
+polygon = PackedVector2Array(-20.1234, 23.7286, -20.4244, -4.34109, -6.47144, -5.48822, 3.46815, 17.7756)
 
 [node name="Planet2" parent="." instance=ExtResource("2_h5r1k")]
-z_index = 131
+z_index = 136
 position = Vector2(214, 94)
 radius = 13.416
 mass = 25.0
 movable = true
 
 [node name="Planet4" parent="." instance=ExtResource("2_h5r1k")]
-z_index = 131
+z_index = 136
 position = Vector2(357, 245)
 radius = 13.416
 mass = 25.0

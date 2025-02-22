@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var line_color := Color.RED
+@export var goal: Goal
 var ballScene: PackedScene = preload("res://Balls/ball.tscn")
 
 @onready var planets: Array[Node] = get_tree().get_nodes_in_group("Planet")
@@ -48,6 +49,8 @@ func _physics_process(delta: float) -> void:
 					/ (planet.global_transform.origin.\
 					distance_squared_to(ball.global_transform.origin))
 			ball.apply_force(force * delta)
+	
+	goal.set_score(goal.get_qtd_inside() - 1)
 	queue_redraw()
 
 
