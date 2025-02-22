@@ -10,11 +10,27 @@ config_version=5
 
 [application]
 
-config/name="alakajam-astral-influence"
+config/name="Alakajam 21 - Gravity"
+config/tags=PackedStringArray("game_jam")
+run/main_scene="res://space.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[debug]
+
+gdscript/warnings/untyped_declaration=1
+
+[display]
+
+window/size/viewport_width=640
+window/size/viewport_height=360
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/stretch/mode="viewport"
+window/stretch/scale_mode="integer"
 
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.0196078, 0.0196078, 0.0196078, 1)
