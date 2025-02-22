@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bkmsu72e1t55b"]
+[gd_scene load_steps=5 format=3 uid="uid://bkmsu72e1t55b"]
 
 [ext_resource type="Script" path="res://space.gd" id="1_rd2gg"]
 [ext_resource type="PackedScene" uid="uid://dqqiobtdcoijb" path="res://Planets/planet.tscn" id="2_h5r1k"]
 [ext_resource type="Script" path="res://camera_2d.gd" id="2_wxtr8"]
+[ext_resource type="PackedScene" uid="uid://dthj6cj4qcyv7" path="res://Balls/ball.tscn" id="4_q2q0c"]
 
 [node name="Space" type="Node2D"]
 z_as_relative = false
@@ -17,16 +18,15 @@ metadata/_edit_lock_ = true
 [node name="Planet" parent="." instance=ExtResource("2_h5r1k")]
 position = Vector2(123, 207)
 radius = 30.0
-mass = 20.0
 metadata/_edit_group_ = true
 
 [node name="Planet2" parent="." instance=ExtResource("2_h5r1k")]
 position = Vector2(332, 92)
 radius = 52.921
-mass = 50.0
-movable = true
 
 [node name="Planet3" parent="." instance=ExtResource("2_h5r1k")]
 position = Vector2(489, 237)
 radius = 25.644
-mass = 15.0
+
+[node name="Ball" parent="." instance=ExtResource("4_q2q0c")]
+position = Vector2(100, 63)

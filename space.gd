@@ -1,35 +1,29 @@
-@tool
 extends Node2D
 
 @export var line_color := Color.RED
-
+var ballScene: PackedScene = preload("res://Balls/ball.tscn")
 
 @onready var planets: Array[Node] = get_tree().get_nodes_in_group("Planet")
+@onready var balls: Array[Node] = get_tree().get_nodes_in_group("Balls")
 
-
-var balls: Array[Vector2] = []
-var timer := 0.0
+const G = 0667439
 
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and timer <= 0:
-		balls.append(Vector2(event.position))
+	if event.is_action_pressed("ui_accept"):
+		var ball = ballScene.instantiate() as Ball
+		ball.position = get_local_mouse_position()
+		add_child(ball)
+		balls.append(ball)
 
 
 func _physics_process(delta: float) -> void:
-	#for planet: Planet in planets:
-		#for ball in balls:
-			
+	for planet: Planet in planets:
+		for ball: Ball in balls:
+			var force = (planet.global_transform.origin
+					- ball.global_transform.origin).normalized()\
+					* G * ball.mass * planet.mass\
+					/ (planet.global_transform.origin.\
+					distance_squared_to(ball.global_transform.origin))
+			ball.apply_force(force * delta)
 	queue_redraw()
-
-
-func _process(delta: float) -> void:
-	if timer < 0:
-		timer = 0
-	else:
-		timer -= delta
-
-
-func _draw() -> void:
-	for ball in balls:
-		draw_circle(ball, 2, Color.WHITE)
