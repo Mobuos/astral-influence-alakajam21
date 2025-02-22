@@ -1,17 +1,27 @@
-[gd_scene load_steps=6 format=3 uid="uid://bkmsu72e1t55b"]
+[gd_scene load_steps=9 format=3 uid="uid://bkmsu72e1t55b"]
 
 [ext_resource type="Script" path="res://space.gd" id="1_rd2gg"]
 [ext_resource type="PackedScene" uid="uid://dqqiobtdcoijb" path="res://Planets/planet.tscn" id="2_h5r1k"]
+[ext_resource type="Texture2D" uid="uid://co06jc3xv8mhw" path="res://assets/background_stars1.png" id="2_ml5ry"]
 [ext_resource type="Script" path="res://camera_2d.gd" id="2_wxtr8"]
 [ext_resource type="PackedScene" uid="uid://dmrhgm8d80jit" path="res://Cannon/cannon.tscn" id="3_07jqw"]
 [ext_resource type="Script" path="res://cup/cup.gd" id="5_1fhju"]
+[ext_resource type="FontFile" uid="uid://ctxiaqhu73s6r" path="res://assets/m6x11plus.ttf" id="6_2oirw"]
+[ext_resource type="Script" path="res://tutorial_nodes.gd" id="6_nmiwk"]
 
 [node name="Space" type="Node2D"]
+z_index = 100
 z_as_relative = false
 script = ExtResource("1_rd2gg")
 num_shots = 20
-force = 90
+cannon_force = 120
 metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -100
+texture_filter = 1
+position = Vector2(319, 182)
+texture = ExtResource("2_ml5ry")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(320, 180)
@@ -19,20 +29,46 @@ script = ExtResource("2_wxtr8")
 metadata/_edit_lock_ = true
 
 [node name="Cannon" parent="." instance=ExtResource("3_07jqw")]
+z_index = 50
 
-[node name="Planet" parent="." instance=ExtResource("2_h5r1k")]
-position = Vector2(123, 207)
-radius = 30.0
-mass = 10.0
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(461, 189)
+rotation = 1.65283
+collision_layer = 2
+script = ExtResource("5_1fhju")
 metadata/_edit_group_ = true
 
+[node name="Counter" type="RichTextLabel" parent="StaticBody2D"]
+z_index = 1000
+texture_filter = 1
+offset_left = -24.0
+offset_top = -6.0
+offset_right = 18.0
+offset_bottom = 14.0
+rotation = -1.57079
+theme_override_colors/default_color = Color(0.298039, 0.337255, 0.443137, 1)
+theme_override_fonts/normal_font = ExtResource("6_2oirw")
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "[center]0/5"
+scroll_active = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(-20.1234, 23.7286, -20.4244, -4.34106, -6.47145, -5.48819, 3.46815, 17.7756, 8.3694, 16.3693, -0.737427, -8.96979, -11.9823, -7.04187, -25.5714, -5.92471, -25.1885, 23.1417)
+
+[node name="Detection" type="Polygon2D" parent="StaticBody2D"]
+color = Color(0.298039, 0.337255, 0.443137, 1)
+polygon = PackedVector2Array(-20.1234, 23.7286, 3.46815, 17.7756, -6.47144, -5.48822, -20.4244, -4.34109)
+
 [node name="Planet2" parent="." instance=ExtResource("2_h5r1k")]
+z_index = 131
 position = Vector2(214, 94)
 radius = 13.416
 mass = 25.0
 movable = true
 
 [node name="Planet4" parent="." instance=ExtResource("2_h5r1k")]
+z_index = 131
 position = Vector2(357, 245)
 radius = 13.416
 mass = 25.0
@@ -43,17 +79,73 @@ position = Vector2(489, 178)
 radius = 25.644
 mass = 50.0
 
+[node name="Planet5" parent="." instance=ExtResource("2_h5r1k")]
+position = Vector2(117, 208)
+radius = 25.644
+mass = 10.0
+
 [node name="CannonTimer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 0.2
+wait_time = 0.3
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(490, 212)
-rotation = -4.63036
-script = ExtResource("5_1fhju")
-metadata/_edit_group_ = true
+[node name="CannonPreviewTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.1
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
-polygon = PackedVector2Array(-10.5465, -4.97714, -12.9376, 11.341, 12.861, 9.97974, 1.67891, -16.192, -1.311, -15.9462, 8.85431, 8.16095, -10.2503, 8.05791, -9.35275, -3.08635)
+[node name="TutorialNodes" type="Node2D" parent="."]
+script = ExtResource("6_nmiwk")
+
+[node name="AimHereBG" type="Polygon2D" parent="TutorialNodes"]
+position = Vector2(325, 158)
+color = Color(0.298039, 0.337255, 0.443137, 1)
+polygon = PackedVector2Array(178, -46, 179, -28, 123, -27, 128, -9, 132, -10, 129, 1, 120, -6, 124, -8, 115, -38, 121, -44)
+
+[node name="AimHereTXT" type="RichTextLabel" parent="TutorialNodes"]
+texture_filter = 1
+offset_left = 450.0
+offset_top = 112.0
+offset_right = 511.0
+offset_bottom = 132.0
+theme_override_colors/default_color = Color(0.960784, 0.960784, 0.960784, 1)
+theme_override_fonts/normal_font = ExtResource("6_2oirw")
+theme_override_font_sizes/normal_font_size = 18
+text = "Aim here"
+
+[node name="DragBG" type="Polygon2D" parent="TutorialNodes"]
+position = Vector2(122, 203)
+color = Color(0.298039, 0.337255, 0.443137, 1)
+polygon = PackedVector2Array(178, -46, 216, -42, 212, -22, 188, -18, 128, -17, 120, -30, 121, -44)
+
+[node name="DragBG2" type="RichTextLabel" parent="TutorialNodes"]
+texture_filter = 1
+offset_left = 253.0
+offset_top = 163.0
+offset_right = 333.0
+offset_bottom = 183.0
+theme_override_colors/default_color = Color(0.960784, 0.960784, 0.960784, 1)
+theme_override_fonts/normal_font = ExtResource("6_2oirw")
+theme_override_font_sizes/normal_font_size = 18
+text = "Drag Planets"
+
+[node name="ShootTXT" type="RichTextLabel" parent="TutorialNodes"]
+z_index = 1001
+texture_filter = 1
+offset_left = 64.0
+offset_top = 222.0
+offset_right = 174.0
+offset_bottom = 262.0
+theme_override_colors/default_color = Color(0.960784, 0.960784, 0.960784, 1)
+theme_override_fonts/normal_font = ExtResource("6_2oirw")
+theme_override_font_sizes/normal_font_size = 18
+text = "[SPACE] to shoot"
+
+[node name="ShootBG" type="Polygon2D" parent="TutorialNodes"]
+z_index = 1000
+position = Vector2(331.062, 200.707)
+rotation = -3.14159
+scale = Vector2(1.27864, 0.991375)
+color = Color(0.298039, 0.337255, 0.443137, 1)
+polygon = PackedVector2Array(178, -46, 216, -42, 212, -22, 188, -18, 128, -17, 123.786, -23.8474, 120, -30, 121, -44)
 
 [connection signal="timeout" from="CannonTimer" to="." method="_on_cannon_timer_timeout"]
+[connection signal="timeout" from="CannonPreviewTimer" to="." method="_on_cannon_preview_timer_timeout"]

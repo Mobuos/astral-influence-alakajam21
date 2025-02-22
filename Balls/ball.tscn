@@ -2,12 +2,17 @@
 
 [ext_resource type="Script" path="res://Balls/ball.gd" id="1_s1x02"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_suoln"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_hrlfw"]
 radius = 3.0
 
 [node name="Ball" type="RigidBody2D" groups=["Balls"]]
+collision_mask = 7
 gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_s1x02")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_suoln")
+shape = SubResource("CircleShape2D_hrlfw")
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

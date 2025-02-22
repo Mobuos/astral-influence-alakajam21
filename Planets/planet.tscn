@@ -2,17 +2,19 @@
 
 [ext_resource type="Script" path="res://Planets/planet.gd" id="1_8j1nk"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_wuy67"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_3b2ul"]
 radius = 20.0
 
 [node name="Planet" type="StaticBody2D" groups=["Planet"]]
-z_index = 1
+z_index = 10
+collision_layer = 3
+collision_mask = 2
 input_pickable = true
 script = ExtResource("1_8j1nk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 1
-shape = SubResource("CircleShape2D_wuy67")
+shape = SubResource("CircleShape2D_3b2ul")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 JColor="*res://jColor.gd"
+MouseState="*res://mouseState.gd"
 
 [debug]
 

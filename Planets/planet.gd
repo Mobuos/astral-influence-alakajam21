@@ -19,38 +19,54 @@ func _ready() -> void:
 	var shape := CircleShape2D.new()
 	_collision.shape = shape
 	shape.radius = radius
+	
+	if movable:
+		z_index += 5
+	
 	queue_redraw()
 
 
 func _draw() -> void:
 	draw_circle(Vector2.ZERO, radius, jColor.LIGHTER)
 	
-	if movable && _hovered:
+	if (movable and _hovered and !MouseState.holding) or _is_dragging :
+		scale = Vector2(1.05, 1.05)
 		_draw_hover()
+	else:
+		scale = Vector2.ONE
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	queue_redraw()
+	if Engine.is_editor_hint():
+		return
 	
-	if _hovered && movable:
+	var mouse_pos := get_global_mouse_position()
+	
+	if _hovered and movable and !MouseState.holding:
 		if Input.is_action_pressed("mouse_click"):
-			var mouse_pos := get_global_mouse_position()
 			if !_is_dragging:
+				MouseState.holding = true
 				_is_dragging = true
 				_offset = mouse_pos - position
-			position = mouse_pos - _offset
-		elif Input.is_action_just_released("mouse_click"):
-			_is_dragging = false
+				
+	if Input.is_action_just_released("mouse_click"):
+		MouseState.holding = false
+		set_collision_layer_value(2, true)
+		_is_dragging = false
+	
+	if _is_dragging:
+		set_collision_layer_value(2, false)
+		self.move_and_collide((mouse_pos - _offset - position) * delta * 5)
+		#position = mouse_pos - _offset
 
 
 func _on_mouse_entered() -> void:
-	scale = Vector2(1.05, 1.05)
 	_hovered = true
 
 
 func _on_mouse_exited() -> void:
-	scale = Vector2.ONE
 	_hovered = false
 
 
@@ -58,6 +74,7 @@ func _draw_hover() -> void:
 	_draw_dashed_circle(radius + 5, 3.0, 2.0, jColor.LIGHT, 2)
 
 
+@warning_ignore("shadowed_variable")
 func _draw_dashed_circle(radius: float, dash_length: float = 10.0, gap_length: float = 5.0, color: Color = Color.WHITE, width: float = -1.0) -> void:
 	var points := PackedVector2Array()
 	var total_length := 2 * PI * radius
