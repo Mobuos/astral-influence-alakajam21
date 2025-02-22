@@ -6,6 +6,7 @@ class_name Planet
 
 @export_range(5, 100) var radius := 20.0
 @export var mass := 5.0
+@export var deleter := false
 
 @export var movable: = false
 var _hovered := false

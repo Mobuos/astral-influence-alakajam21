@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmrhgm8d80jit"]
+
+[ext_resource type="Script" path="res://Cannon/cannon.gd" id="1_ir3u0"]
+
+[node name="Cannon" type="Node2D" groups=["Cannon"]]
+z_index = 2
+position = Vector2(97, 192)
+script = ExtResource("1_ir3u0")
+radius = 7.0
+angle = 4.79093
+cannon_size = 15

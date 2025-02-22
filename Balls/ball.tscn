@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" path="res://Balls/ball.gd" id="1_s1x02"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_5qby0"]
-radius = 5.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_suoln"]
+radius = 3.0
 
 [node name="Ball" type="RigidBody2D" groups=["Balls"]]
 gravity_scale = 0.0
 script = ExtResource("1_s1x02")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_5qby0")
+shape = SubResource("CircleShape2D_suoln")

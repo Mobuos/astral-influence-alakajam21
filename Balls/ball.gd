@@ -16,7 +16,7 @@ func _ready() -> void:
 
 
 func _draw() -> void:
-	draw_circle(Vector2.ZERO, radius, jColor.DARK)
+	draw_circle(Vector2.ZERO, radius, jColor.LIGHT)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
