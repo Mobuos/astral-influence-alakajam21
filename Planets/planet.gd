@@ -32,8 +32,9 @@ func _draw() -> void:
 		draw_circle(Vector2.ZERO + Vector2.RIGHT, radius, jColor.DARK)
 		draw_circle(Vector2.ZERO, radius, jColor.DARKER)
 	elif white_hole:
-		draw_circle(Vector2.ZERO + Vector2.RIGHT, radius, jColor.LIGHTER)
-		draw_circle(Vector2.ZERO, radius, jColor.LIGHT)
+		draw_circle(Vector2.ZERO + Vector2.RIGHT * 4, radius, jColor.DARK)
+		draw_circle(Vector2.ZERO + Vector2.LEFT * 4, radius, jColor.LIGHT)
+		draw_circle(Vector2.ZERO, radius, jColor.LIGHTER)
 	else: # Planet
 		draw_circle(Vector2.ZERO, radius, jColor.LIGHTER)
 	

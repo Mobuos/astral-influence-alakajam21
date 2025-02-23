@@ -5,13 +5,17 @@ class_name Space
 @export var goal: Goal
 @export var goal_offset: int = 1
 @export var freeSpace := false
+@onready var vump: AudioStreamPlayer2D = $vump
+@onready var cannonplayer: AudioStreamPlayer2D = $cannonplayer
+@onready var restart: AudioStreamPlayer2D = $restart
+
 var ballScene: PackedScene = preload("res://Balls/ball.tscn")
+var goalMet := false
 signal finished
 
 @onready var planets: Array[Node] = get_tree().get_nodes_in_group("Planet")
 @onready var balls: Array[Node] = get_tree().get_nodes_in_group("Balls")
 @onready var cannons: Array[Node] = get_tree().get_nodes_in_group("Cannon")
-@onready var cannon := cannons[0] as Cannon
 @onready var background: Sprite2D = $Background
 @onready var next_level_ui: Node2D = $"Next Level UI"
 
@@ -36,10 +40,14 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("restart"):
+		restart.pitch_scale = 0.8
+		restart.play()
 		MouseState.locked = false
 		restart_balls()
 	
 	if Input.is_action_just_pressed("fire"):
+		restart.pitch_scale = 2
+		restart.play()
 		if !freeSpace:
 			restart_balls()
 			MouseState.locked = true
@@ -47,12 +55,14 @@ func _process(delta: float) -> void:
 		cannon_timer.start()
 	
 	# Check for win condition
-	if goal.get_qtd_inside() - goal_offset >= goal.goalQtd:
+	if goal.get_qtd_inside() - goal_offset >= goal.goalQtd or goalMet:
+		goalMet = true
 		if next_level_ui.modulate.a == 0:
-			var tween = get_tree().create_tween()
+			var tween := get_tree().create_tween()
 			tween.tween_property(next_level_ui, "modulate", Color.WHITE, 0.5)
 		if Input.is_action_just_pressed("next"):
 			finished.emit()
+	
 	background.rotate(delta / 1000)
 
 
@@ -100,12 +110,17 @@ func launchBall(ball: Ball, c: Cannon) -> void:
 func deleteBall(ball: Ball) -> void:
 	balls.erase(ball)
 	ball.queue_free()
+	if balls.is_empty():
+		MouseState.locked = false
+		restart_balls()
 
 
 func _on_cannon_timer_timeout() -> void:
 	if _shots > 0:
-		var ball := createBall()
-		launchBall(ball, cannon)
+		for cannon: Cannon in cannons:
+			var ball := createBall()
+			launchBall(ball, cannon)
+			cannonplayer.play()
 		_shots -= 1
 	else:
 		shooting = false
@@ -114,16 +129,16 @@ func _on_cannon_timer_timeout() -> void:
 
 
 func _on_cannon_preview_timer_timeout() -> void:
-	var ball := createBall(true)
-	ball.color = jColor.DARK
-	ball.radius = 1
-	launchBall(ball, cannon)
+	for cannon: Cannon in cannons:
+		var ball := createBall(true)
+		ball.color = jColor.DARK
+		ball.radius = 1
+		launchBall(ball, cannon)
 
 
 func _on_ball_hit(ref: Node) -> void:
-	balls.erase(ref)
-	ref.queue_free()
-	pass
+	vump.play()
+	deleteBall(ref)
 
 
 #func _draw() -> void:

@@ -3,6 +3,8 @@ extends RigidBody2D
 class_name Ball
 
 @onready var _collision: CollisionShape2D = $CollisionShape2D
+@onready var thumper: AudioStreamPlayer2D = $thumper
+@onready var vump: AudioStreamPlayer2D = $vump
 
 @export_range(1, 20) var radius := 3.0
 
@@ -36,3 +38,9 @@ func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, lo
 	if body is Planet:
 		if body.black_hole:
 			hit.emit(self)
+		else:
+			thumper.volume_db = -25
+			thumper.play()
+	else:
+		thumper.volume_db = -35
+		thumper.play()

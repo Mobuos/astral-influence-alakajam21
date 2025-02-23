@@ -1,9 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://dthj6cj4qcyv7"]
+[gd_scene load_steps=5 format=3 uid="uid://dthj6cj4qcyv7"]
 
 [ext_resource type="Script" path="res://Balls/ball.gd" id="1_s1x02"]
+[ext_resource type="AudioStream" uid="uid://bxvkpk8jlcfix" path="res://assets/hitthump.wav" id="2_gykp1"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_hrlfw"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_wkp4w"]
 radius = 3.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_quskx"]
+random_pitch = 2.46
+random_volume_offset_db = 3.89
+streams_count = 1
+stream_0/stream = ExtResource("2_gykp1")
 
 [node name="Ball" type="RigidBody2D" groups=["Balls"]]
 collision_mask = 7
@@ -13,6 +20,10 @@ max_contacts_reported = 1
 script = ExtResource("1_s1x02")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_hrlfw")
+shape = SubResource("CircleShape2D_wkp4w")
+
+[node name="thumper" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_quskx")
+volume_db = -34.116
 
 [connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

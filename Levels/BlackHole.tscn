@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://kqhy1u5xylje"]
+[gd_scene load_steps=18 format=3 uid="uid://kqhy1u5xylje"]
 
 [ext_resource type="Script" path="res://Levels/space.gd" id="1_vpjcn"]
 [ext_resource type="Texture2D" uid="uid://co06jc3xv8mhw" path="res://assets/background_stars1.png" id="2_v32nx"]
@@ -7,6 +7,9 @@
 [ext_resource type="Script" path="res://cup/cup.gd" id="5_td86i"]
 [ext_resource type="FontFile" uid="uid://ctxiaqhu73s6r" path="res://assets/m6x11plus.ttf" id="6_vfsah"]
 [ext_resource type="PackedScene" uid="uid://dqqiobtdcoijb" path="res://Planets/planet.tscn" id="7_itdxs"]
+[ext_resource type="AudioStream" uid="uid://qxwyexenypqy" path="res://assets/hitthump_reverse.wav" id="8_8c6k8"]
+[ext_resource type="AudioStream" uid="uid://cuewck24jon3v" path="res://assets/likeapoplight.wav" id="9_nd3lf"]
+[ext_resource type="AudioStream" uid="uid://cee1615vah1fg" path="res://assets/restart.wav" id="10_6w5hy"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0cspy"]
 normal = Vector2(0, 1)
@@ -22,6 +25,24 @@ distance = 21.0
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_tfka3"]
 normal = Vector2(-1, 0)
 distance = 20.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_6v3j0"]
+random_pitch = 2.54
+random_volume_offset_db = 2.81
+streams_count = 1
+stream_0/stream = ExtResource("8_8c6k8")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_dumkr"]
+random_pitch = 2.76
+random_volume_offset_db = 4.25
+streams_count = 1
+stream_0/stream = ExtResource("9_nd3lf")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_fwgdr"]
+random_pitch = 1.1
+random_volume_offset_db = 3.46
+streams_count = 1
+stream_0/stream = ExtResource("10_6w5hy")
 
 [node name="Space 1" type="Node2D" node_paths=PackedStringArray("goal")]
 z_index = 100
@@ -93,12 +114,10 @@ polygon = PackedVector2Array(99.9973, 215.531, 32.8815, 229.076, -37.1556, 255.9
 polygon = PackedVector2Array(-0.179123, -63.1979, -15.3745, -64.9586, -26.1603, -74.1056, -30.3793, -88.8093, -24.632, -104.332, -12.4132, -114.367, 6.76875, -112.934, 17.5545, -103.787, 21.7736, -89.0838, 17.9376, -74.7211)
 
 [node name="Planet2" parent="." instance=ExtResource("7_itdxs")]
-z_index = 191
+z_index = 261
 position = Vector2(70, 212)
 radius = 9.0
 mass = 15.0
-white_hole = false
-black_hole = false
 movable = true
 
 [node name="BH" parent="." instance=ExtResource("7_itdxs")]
@@ -106,22 +125,17 @@ z_index = 201
 position = Vector2(329, 181)
 radius = 74.188
 mass = 100.0
-white_hole = false
 black_hole = true
 
 [node name="Target" parent="." instance=ExtResource("7_itdxs")]
 position = Vector2(108, 178)
 radius = 16.596
 mass = 30.0
-white_hole = false
-black_hole = false
 
 [node name="Planet5" parent="." instance=ExtResource("7_itdxs")]
 position = Vector2(637, 183)
 radius = 25.644
 mass = 10.0
-white_hole = false
-black_hole = false
 
 [node name="CannonTimer" type="Timer" parent="."]
 unique_name_in_owner = true
@@ -160,6 +174,7 @@ offset_left = 11.0
 offset_top = 334.0
 offset_right = 121.0
 offset_bottom = 357.0
+mouse_filter = 1
 theme_override_colors/default_color = Color(0.960784, 0.960784, 0.960784, 0.231373)
 theme_override_fonts/normal_font = ExtResource("6_vfsah")
 theme_override_font_sizes/normal_font_size = 18
@@ -185,6 +200,21 @@ shape = SubResource("WorldBoundaryShape2D_mscwo")
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="ScreenEdges"]
 position = Vector2(660, 183)
 shape = SubResource("WorldBoundaryShape2D_tfka3")
+
+[node name="vump" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_6v3j0")
+volume_db = -20.0
+pitch_scale = 1.7
+
+[node name="cannonplayer" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_dumkr")
+volume_db = -22.561
+max_polyphony = 5
+
+[node name="restart" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_fwgdr")
+volume_db = -25.312
+pitch_scale = 1.91
 
 [connection signal="timeout" from="CannonTimer" to="." method="_on_cannon_timer_timeout"]
 [connection signal="timeout" from="CannonPreviewTimer" to="." method="_on_cannon_preview_timer_timeout"]
