@@ -33,4 +33,6 @@ func _process(_delta: float) -> void:
 
 
 func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
-	hit.emit(self)
+	if body is Planet:
+		if body.black_hole:
+			hit.emit(self)

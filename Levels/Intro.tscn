@@ -1,0 +1,247 @@
+[gd_scene load_steps=13 format=3 uid="uid://dp1ljarvrwl4i"]
+
+[ext_resource type="Script" path="res://Levels/space.gd" id="1_wr4ir"]
+[ext_resource type="Texture2D" uid="uid://co06jc3xv8mhw" path="res://assets/background_stars1.png" id="2_bvmar"]
+[ext_resource type="Script" path="res://camera_2d.gd" id="3_4fg5e"]
+[ext_resource type="PackedScene" uid="uid://dmrhgm8d80jit" path="res://Cannon/cannon.tscn" id="4_mxmse"]
+[ext_resource type="Script" path="res://cup/cup.gd" id="5_wgmpw"]
+[ext_resource type="FontFile" uid="uid://ctxiaqhu73s6r" path="res://assets/m6x11plus.ttf" id="6_w81y3"]
+[ext_resource type="PackedScene" uid="uid://dqqiobtdcoijb" path="res://Planets/planet.tscn" id="7_0a5u5"]
+[ext_resource type="Script" path="res://tutorial_nodes.gd" id="8_ejnfp"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0cspy"]
+normal = Vector2(0, 1)
+distance = 20.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_kgpng"]
+distance = 19.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_mscwo"]
+normal = Vector2(1, 0)
+distance = 21.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_tfka3"]
+normal = Vector2(-1, 0)
+distance = 20.0
+
+[node name="Space 1" type="Node2D" node_paths=PackedStringArray("goal")]
+z_index = 100
+z_as_relative = false
+script = ExtResource("1_wr4ir")
+goal = NodePath("Goal")
+num_shots = 20
+cannon_force = 120
+metadata/_edit_lock_ = true
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -100
+texture_filter = 1
+position = Vector2(319, 182)
+texture = ExtResource("2_bvmar")
+
+[node name="Background" type="Sprite2D" parent="Background"]
+z_index = -100
+texture_filter = 1
+position = Vector2(1, 276)
+rotation = 3.14159
+texture = ExtResource("2_bvmar")
+
+[node name="Background2" type="Sprite2D" parent="Background"]
+z_index = -100
+texture_filter = 1
+position = Vector2(-1, -269)
+rotation = 3.14159
+texture = ExtResource("2_bvmar")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(320, 180)
+script = ExtResource("3_4fg5e")
+metadata/_edit_lock_ = true
+
+[node name="Cannon" parent="." instance=ExtResource("4_mxmse")]
+z_index = 50
+
+[node name="Goal" type="StaticBody2D" parent="."]
+position = Vector2(461, 189)
+rotation = 1.65283
+collision_layer = 2
+script = ExtResource("5_wgmpw")
+goalQtd = 10
+metadata/_edit_group_ = true
+
+[node name="Counter" type="RichTextLabel" parent="Goal"]
+z_index = 1000
+texture_filter = 1
+offset_left = -24.0
+offset_top = -6.0
+offset_right = 18.0
+offset_bottom = 14.0
+rotation = -1.57079
+theme_override_colors/default_color = Color(0.298039, 0.337255, 0.443137, 1)
+theme_override_fonts/normal_font = ExtResource("6_w81y3")
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "[center]0/10"
+scroll_active = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Goal"]
+polygon = PackedVector2Array(-20.1234, 23.7286, -20.4244, -4.34106, -6.47145, -5.48819, 3.46815, 17.7756, 8.3694, 16.3693, -0.737427, -8.96979, -11.9823, -7.04187, -25.5714, -5.92471, -25.1885, 23.1417)
+
+[node name="Detection" type="Area2D" parent="Goal"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Goal/Detection"]
+polygon = PackedVector2Array(-20.1234, 23.7286, -20.4244, -4.34109, -6.47144, -5.48822, 3.46815, 17.7756)
+
+[node name="Planet2" parent="." instance=ExtResource("7_0a5u5")]
+z_index = 191
+position = Vector2(214, 94)
+radius = 13.416
+mass = 20.0
+white_hole = null
+black_hole = null
+movable = true
+
+[node name="Planet4" parent="." instance=ExtResource("7_0a5u5")]
+z_index = 191
+position = Vector2(357, 245)
+radius = 9.0
+mass = 10.0
+white_hole = null
+black_hole = null
+movable = true
+
+[node name="Planet3" parent="." instance=ExtResource("7_0a5u5")]
+position = Vector2(489, 178)
+radius = 25.644
+mass = 50.0
+white_hole = null
+black_hole = null
+
+[node name="Planet5" parent="." instance=ExtResource("7_0a5u5")]
+position = Vector2(117, 208)
+radius = 25.644
+mass = 10.0
+white_hole = null
+black_hole = null
+
+[node name="CannonTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.3
+
+[node name="CannonPreviewTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.1
+
+[node name="TutorialNodes" type="Node2D" parent="."]
+script = ExtResource("8_ejnfp")
+
+[node name="AimHereBG" type="Polygon2D" parent="TutorialNodes"]
+position = Vector2(325, 158)
+color = Color(0.298039, 0.337255, 0.443137, 1)
+polygon = PackedVector2Array(178, -46, 179, -28, 123, -27, 128, -9, 132, -10, 129, 1, 120, -6, 124, -8, 115, -38, 121, -44)
+
+[node name="AimHereTXT" type="RichTextLabel" parent="TutorialNodes"]
+texture_filter = 1
+offset_left = 450.0
+offset_top = 112.0
+offset_right = 511.0
+offset_bottom = 132.0
+theme_override_colors/default_color = Color(0.960784, 0.960784, 0.960784, 1)
+theme_override_fonts/normal_font = ExtResource("6_w81y3")
+theme_override_font_sizes/normal_font_size = 18
+text = "Aim here"
+
+[node name="DragBG" type="Polygon2D" parent="TutorialNodes"]
+position = Vector2(122, 203)
+color = Color(0.298039, 0.337255, 0.443137, 1)
+polygon = PackedVector2Array(180, -55, 217, -51, 212, -22, 190, -11, 128, -17, 120, -30, 122, -53)
+
+[node name="DragBG2" type="RichTextLabel" parent="TutorialNodes"]
+texture_filter = 1
+offset_left = 248.0
+offset_top = 151.0
+offset_right = 333.0
+offset_bottom = 189.0
+theme_override_colors/default_color = Color(0.960784, 0.960784, 0.960784, 1)
+theme_override_fonts/normal_font = ExtResource("6_w81y3")
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "[center]Move Planets
+to aim"
+
+[node name="ShootTXT" type="RichTextLabel" parent="TutorialNodes"]
+z_index = 1001
+texture_filter = 1
+offset_left = 64.0
+offset_top = 222.0
+offset_right = 174.0
+offset_bottom = 245.0
+theme_override_colors/default_color = Color(0.960784, 0.960784, 0.960784, 1)
+theme_override_fonts/normal_font = ExtResource("6_w81y3")
+theme_override_font_sizes/normal_font_size = 18
+text = "[SPACE] to shoot"
+
+[node name="ShootBG" type="Polygon2D" parent="TutorialNodes"]
+z_index = 1000
+position = Vector2(331.062, 200.707)
+rotation = -3.14159
+scale = Vector2(1.27864, 0.991375)
+color = Color(0.298039, 0.337255, 0.443137, 1)
+polygon = PackedVector2Array(165.85, -44.6789, 212.774, -41.653, 212, -22, 188, -18, 128, -17, 123.786, -23.8474, 120, -30, 122.053, -39.6353)
+
+[node name="Next Level UI" type="Node2D" parent="."]
+
+[node name="ShootTXT" type="RichTextLabel" parent="Next Level UI"]
+z_index = 1001
+texture_filter = 1
+offset_left = 488.0
+offset_top = 323.0
+offset_right = 612.0
+offset_bottom = 344.0
+theme_override_colors/default_color = Color(0.960784, 0.960784, 0.960784, 1)
+theme_override_fonts/normal_font = ExtResource("6_w81y3")
+theme_override_font_sizes/normal_font_size = 18
+text = "[ENTER] to continue"
+
+[node name="ShootBG" type="Polygon2D" parent="Next Level UI"]
+z_index = 1000
+position = Vector2(772, 303)
+rotation = -3.14159
+scale = Vector2(1.27864, 0.991375)
+color = Color(0.298039, 0.337255, 0.443137, 1)
+polygon = PackedVector2Array(178, -46, 224.456, -41.358, 229.149, -20.1754, 188, -18, 128, -17, 123.786, -23.8474, 120, -30, 121, -44)
+
+[node name="ShootTXT" type="RichTextLabel" parent="."]
+z_index = 1001
+texture_filter = 1
+offset_left = 11.0
+offset_top = 334.0
+offset_right = 121.0
+offset_bottom = 357.0
+theme_override_colors/default_color = Color(0.960784, 0.960784, 0.960784, 0.231373)
+theme_override_fonts/normal_font = ExtResource("6_w81y3")
+theme_override_font_sizes/normal_font_size = 18
+text = "[R] to reset"
+
+[node name="ScreenEdges" type="StaticBody2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScreenEdges"]
+position = Vector2(330, -19)
+shape = SubResource("WorldBoundaryShape2D_0cspy")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ScreenEdges"]
+position = Vector2(323, 379)
+shape = SubResource("WorldBoundaryShape2D_kgpng")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="ScreenEdges"]
+position = Vector2(-20, 180)
+shape = SubResource("WorldBoundaryShape2D_mscwo")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="ScreenEdges"]
+position = Vector2(660, 183)
+shape = SubResource("WorldBoundaryShape2D_tfka3")
+
+[connection signal="timeout" from="CannonTimer" to="." method="_on_cannon_timer_timeout"]
+[connection signal="timeout" from="CannonPreviewTimer" to="." method="_on_cannon_preview_timer_timeout"]

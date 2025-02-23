@@ -4,9 +4,10 @@ class_name Planet
 
 @onready var _collision: CollisionShape2D = $CollisionShape2D
 
-@export_range(5, 100) var radius := 20.0
+@export_range(5, 200) var radius := 20.0
 @export var mass := 5.0
-@export var deleter := false
+@export var white_hole := false
+@export var black_hole := false
 
 @export var movable: = false
 var _hovered := false
@@ -27,13 +28,17 @@ func _ready() -> void:
 
 
 func _draw() -> void:
-	draw_circle(Vector2.ZERO, radius, jColor.LIGHTER)
+	if black_hole:
+		draw_circle(Vector2.ZERO + Vector2.RIGHT, radius, jColor.DARK)
+		draw_circle(Vector2.ZERO, radius, jColor.DARKER)
+	elif white_hole:
+		draw_circle(Vector2.ZERO + Vector2.RIGHT, radius, jColor.LIGHTER)
+		draw_circle(Vector2.ZERO, radius, jColor.LIGHT)
+	else: # Planet
+		draw_circle(Vector2.ZERO, radius, jColor.LIGHTER)
 	
 	if (movable and _hovered and !MouseState.holding) or _is_dragging :
-		scale = Vector2(1.05, 1.05)
 		_draw_hover()
-	else:
-		scale = Vector2.ONE
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -44,9 +49,19 @@ func _process(delta: float) -> void:
 	
 	var mouse_pos := get_global_mouse_position()
 	
+	if _is_dragging:
+		rotation += delta
+		scale = Vector2(1.05, 1.05)
+	else:
+		rotation += delta / 4
+		scale = Vector2.ONE
+	
+	if MouseState.locked:
+		_is_dragging = false
+	
 	if _hovered and movable and !MouseState.holding:
 		if Input.is_action_pressed("mouse_click"):
-			if !_is_dragging:
+			if !_is_dragging and !MouseState.locked:
 				MouseState.holding = true
 				_is_dragging = true
 				_offset = mouse_pos - position
@@ -71,7 +86,10 @@ func _on_mouse_exited() -> void:
 
 
 func _draw_hover() -> void:
-	_draw_dashed_circle(radius + 5, 3.0, 2.0, jColor.LIGHT, 2)
+	if MouseState.locked:
+		_draw_dashed_circle(radius + 5, 5, 0, Color.ORANGE_RED, 2)
+	else:
+		_draw_dashed_circle(radius + 5, 3.0, 5.0, jColor.LIGHT)
 
 
 @warning_ignore("shadowed_variable")
@@ -79,7 +97,7 @@ func _draw_dashed_circle(radius: float, dash_length: float = 10.0, gap_length: f
 	var points := PackedVector2Array()
 	var total_length := 2 * PI * radius
 	var segment_length := dash_length + gap_length
-	var num_segments := int(total_length / segment_length)
+	var num_segments := int(total_length / segment_length) + 1
 
 	for i in range(num_segments):
 		var angle_start := i * segment_length / total_length * TAU
