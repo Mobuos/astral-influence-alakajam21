@@ -1,10 +1,10 @@
 [gd_scene load_steps=18 format=3 uid="uid://dc460vxfja4wm"]
 
-[ext_resource type="Script" path="res://Levels/space.gd" id="1_7301d"]
+[ext_resource type="Script" uid="uid://6mupqpra7y2a" path="res://Levels/space.gd" id="1_7301d"]
 [ext_resource type="Texture2D" uid="uid://co06jc3xv8mhw" path="res://assets/background_stars1.png" id="2_sp8hd"]
-[ext_resource type="Script" path="res://camera_2d.gd" id="3_lqe7h"]
+[ext_resource type="Script" uid="uid://kcrmuj32320v" path="res://camera_2d.gd" id="3_lqe7h"]
 [ext_resource type="PackedScene" uid="uid://dmrhgm8d80jit" path="res://Cannon/cannon.tscn" id="4_vfpnu"]
-[ext_resource type="Script" path="res://cup/cup.gd" id="5_xml1d"]
+[ext_resource type="Script" uid="uid://dkpy5530qroau" path="res://cup/cup.gd" id="5_xml1d"]
 [ext_resource type="FontFile" uid="uid://ctxiaqhu73s6r" path="res://assets/m6x11plus.ttf" id="6_msljp"]
 [ext_resource type="PackedScene" uid="uid://dqqiobtdcoijb" path="res://Planets/planet.tscn" id="7_ms12r"]
 [ext_resource type="AudioStream" uid="uid://qxwyexenypqy" path="res://assets/hitthump_reverse.wav" id="8_y6gee"]
@@ -117,21 +117,21 @@ polygon = PackedVector2Array(0.177231, -10.0483, 5.40625, -7.46811, 24.8473, -15
 polygon = PackedVector2Array(24.8473, -15.0868, 4.75072, -15.4412, 4.61349, -41.5177, 13.1735, -47.2383)
 
 [node name="Planet2" parent="." instance=ExtResource("7_ms12r")]
-z_index = 241
+z_index = 246
 position = Vector2(350, 98)
 radius = 36.035
 mass = 60.0
 movable = true
 
 [node name="Planet4" parent="." instance=ExtResource("7_ms12r")]
-z_index = 236
+z_index = 241
 position = Vector2(236, 287)
 radius = 9.0
 mass = 10.0
 movable = true
 
 [node name="Target" parent="." instance=ExtResource("7_ms12r")]
-z_index = 70
+z_index = 75
 position = Vector2(84, 234)
 radius = 25.644
 mass = 50.0
@@ -209,7 +209,7 @@ color = Color(0.298039, 0.337255, 0.443137, 1)
 polygon = PackedVector2Array(178, -46, 224.456, -41.358, 229.149, -20.1754, 188, -18, 128, -17, 123.786, -23.8474, 120, -30, 121, -44)
 
 [node name="Target2" parent="." instance=ExtResource("7_ms12r")]
-z_index = 70
+z_index = 75
 position = Vector2(74, 38)
 radius = 10.0
 mass = 80.0
@@ -217,7 +217,7 @@ black_hole = true
 movable = true
 
 [node name="Target4" parent="." instance=ExtResource("7_ms12r")]
-z_index = 80
+z_index = 85
 position = Vector2(547, 296)
 radius = 10.0
 mass = -30.0

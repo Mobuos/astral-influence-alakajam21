@@ -1,10 +1,10 @@
 [gd_scene load_steps=18 format=3 uid="uid://kqhy1u5xylje"]
 
-[ext_resource type="Script" path="res://Levels/space.gd" id="1_vpjcn"]
+[ext_resource type="Script" uid="uid://6mupqpra7y2a" path="res://Levels/space.gd" id="1_vpjcn"]
 [ext_resource type="Texture2D" uid="uid://co06jc3xv8mhw" path="res://assets/background_stars1.png" id="2_v32nx"]
-[ext_resource type="Script" path="res://camera_2d.gd" id="3_xv8jf"]
+[ext_resource type="Script" uid="uid://kcrmuj32320v" path="res://camera_2d.gd" id="3_xv8jf"]
 [ext_resource type="PackedScene" uid="uid://dmrhgm8d80jit" path="res://Cannon/cannon.tscn" id="4_yc5ui"]
-[ext_resource type="Script" path="res://cup/cup.gd" id="5_td86i"]
+[ext_resource type="Script" uid="uid://dkpy5530qroau" path="res://cup/cup.gd" id="5_td86i"]
 [ext_resource type="FontFile" uid="uid://ctxiaqhu73s6r" path="res://assets/m6x11plus.ttf" id="6_vfsah"]
 [ext_resource type="PackedScene" uid="uid://dqqiobtdcoijb" path="res://Planets/planet.tscn" id="7_itdxs"]
 [ext_resource type="AudioStream" uid="uid://qxwyexenypqy" path="res://assets/hitthump_reverse.wav" id="8_8c6k8"]
@@ -114,7 +114,7 @@ polygon = PackedVector2Array(99.9973, 215.531, 32.8815, 229.076, -37.1556, 255.9
 polygon = PackedVector2Array(-0.179123, -63.1979, -15.3745, -64.9586, -26.1603, -74.1056, -30.3793, -88.8093, -24.632, -104.332, -12.4132, -114.367, 6.76875, -112.934, 17.5545, -103.787, 21.7736, -89.0838, 17.9376, -74.7211)
 
 [node name="Planet2" parent="." instance=ExtResource("7_itdxs")]
-z_index = 261
+z_index = 266
 position = Vector2(70, 212)
 radius = 9.0
 mass = 15.0

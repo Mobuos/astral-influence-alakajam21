@@ -13,7 +13,7 @@ config_version=5
 config/name="Alakajam 21 - Gravity"
 config/tags=PackedStringArray("game_jam")
 run/main_scene="res://Levels/space.tscn"
-config/features=PackedStringArray("4.3", "GL Compatibility")
+config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]

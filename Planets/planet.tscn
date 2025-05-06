@@ -1,8 +1,8 @@
 [gd_scene load_steps=3 format=3 uid="uid://dqqiobtdcoijb"]
 
-[ext_resource type="Script" path="res://Planets/planet.gd" id="1_8j1nk"]
+[ext_resource type="Script" uid="uid://bq1u5g48ecpeu" path="res://Planets/planet.gd" id="1_8j1nk"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_07mvr"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_lbeam"]
 radius = 20.0
 
 [node name="Planet" type="StaticBody2D" groups=["Planet"]]
@@ -14,7 +14,7 @@ script = ExtResource("1_8j1nk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 1
-shape = SubResource("CircleShape2D_07mvr")
+shape = SubResource("CircleShape2D_lbeam")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bkmsu72e1t55b"]
 
-[ext_resource type="Script" path="res://Levels/LevelManager.gd" id="1_ol7yx"]
+[ext_resource type="Script" uid="uid://dx4qpbshdmh1j" path="res://Levels/LevelManager.gd" id="1_ol7yx"]
 
 [node name="SpaceManager" type="Node"]
 script = ExtResource("1_ol7yx")

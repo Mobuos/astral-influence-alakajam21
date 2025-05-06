@@ -1,14 +1,14 @@
 [gd_scene load_steps=19 format=3 uid="uid://dp1ljarvrwl4i"]
 
-[ext_resource type="Script" path="res://Levels/space.gd" id="1_wr4ir"]
+[ext_resource type="Script" uid="uid://6mupqpra7y2a" path="res://Levels/space.gd" id="1_wr4ir"]
 [ext_resource type="Texture2D" uid="uid://co06jc3xv8mhw" path="res://assets/background_stars1.png" id="2_bvmar"]
-[ext_resource type="Script" path="res://camera_2d.gd" id="3_4fg5e"]
+[ext_resource type="Script" uid="uid://kcrmuj32320v" path="res://camera_2d.gd" id="3_4fg5e"]
 [ext_resource type="PackedScene" uid="uid://dmrhgm8d80jit" path="res://Cannon/cannon.tscn" id="4_mxmse"]
-[ext_resource type="Script" path="res://cup/cup.gd" id="5_wgmpw"]
+[ext_resource type="Script" uid="uid://dkpy5530qroau" path="res://cup/cup.gd" id="5_wgmpw"]
 [ext_resource type="FontFile" uid="uid://ctxiaqhu73s6r" path="res://assets/m6x11plus.ttf" id="6_w81y3"]
 [ext_resource type="PackedScene" uid="uid://dqqiobtdcoijb" path="res://Planets/planet.tscn" id="7_0a5u5"]
 [ext_resource type="AudioStream" uid="uid://cuewck24jon3v" path="res://assets/likeapoplight.wav" id="7_633g0"]
-[ext_resource type="Script" path="res://tutorial_nodes.gd" id="8_ejnfp"]
+[ext_resource type="Script" uid="uid://bimfbyclth52k" path="res://tutorial_nodes.gd" id="8_ejnfp"]
 [ext_resource type="AudioStream" uid="uid://qxwyexenypqy" path="res://assets/hitthump_reverse.wav" id="9_8ynhq"]
 [ext_resource type="AudioStream" uid="uid://cee1615vah1fg" path="res://assets/restart.wav" id="11_cdutg"]
 
@@ -122,14 +122,14 @@ volume_db = -22.561
 max_polyphony = 5
 
 [node name="Planet2" parent="." instance=ExtResource("7_0a5u5")]
-z_index = 266
+z_index = 271
 position = Vector2(221, 106)
 radius = 13.416
 mass = 20.0
 movable = true
 
 [node name="Planet4" parent="." instance=ExtResource("7_0a5u5")]
-z_index = 266
+z_index = 271
 position = Vector2(323, 227)
 radius = 9.0
 mass = 10.0
